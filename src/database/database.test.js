@@ -78,7 +78,8 @@ beforeAll(async () => {
   userLoginResId = userLoginRes.body.user.id;
 });
 
-// Menu Tests
+// Menu Tests'
+
 test('getMenu', async () => {
     // testUser.email = Math.random().toString(36).substring(2, 12) + '@test.com';
     // const registerRes = await request(app).post('/api/auth').send(testUser);
