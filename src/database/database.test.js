@@ -39,7 +39,7 @@ function randomName() {
   return Math.random().toString(36).substring(2, 12);
 }
 
-// very helpful franchise and admin user setup
+// Very helpful franchise and admin user setup
 beforeAll(async () => {
   regularUser = await {
     name: "pizza diner",
