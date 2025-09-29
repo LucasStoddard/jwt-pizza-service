@@ -12,6 +12,16 @@ if (process.env.VSCODE_INSPECTOR_OPTIONS) {
 //   expect(potentialJwt).toMatch(/^[a-zA-Z0-9\-_]*\.[a-zA-Z0-9\-_]*\.[a-zA-Z0-9\-_]*$/);
 // }
 
+// This block is too satisfy the eslint
+let regularUser;
+let adminUser;
+// let newStore;
+let newFranchise;
+// let regUserFranchise; 
+let adminAuthToken;
+let regularAuthToken;
+let userLoginResId;
+
 const { Role, DB } = require('../database/database.js');
 
 async function createAdminUser() {
@@ -37,11 +47,11 @@ beforeAll(async () => {
     password: "a",
   };
 
-  newStore = await {
-    id: randomName(),
-    name: randomName(),
-    totalRevenue: 1000,
-  };
+//   newStore = await {
+//     id: randomName(),
+//     name: randomName(),
+//     totalRevenue: 1000,
+//   };
 
   regularUser.email = Math.random().toString(36).substring(2, 12) + "@test.com";
   adminUser = await createAdminUser();
@@ -53,11 +63,11 @@ beforeAll(async () => {
     stores: [{ id: randomName(), name: randomName(), totalRevenue: 1000 }],
   };
 
-  regUserFranchise = {
-    name: randomName(),
-    admins: [{ email: regularUser.email }],
-    stores: [{ id: randomName(), name: randomName(), totalRevenue: 1000 }],
-  };
+//   regUserFranchise = {
+//     name: randomName(),
+//     admins: [{ email: regularUser.email }],
+//     stores: [{ id: randomName(), name: randomName(), totalRevenue: 1000 }],
+//   };
 
   const userLoginRes = await request(app).post("/api/auth").send(regularUser);
   const loginRes = await request(app).put("/api/auth").send(adminUser);
