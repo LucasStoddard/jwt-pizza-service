@@ -150,3 +150,29 @@ test('logout', async () => {
     expect(res.status).toBe(200);
     expect(res.body.message).toBe('logout successful');
 });
+
+async function registerUser(service) {
+  const testUser = {
+    name: 'pizza diner',
+    email: `${randomName()}@test.com`,
+    password: 'a',
+  };
+  const registerRes = await service.post('/api/auth').send(testUser);
+  registerRes.body.user.password = testUser.password;
+
+  return [registerRes.body.user, registerRes.body.token];
+}
+
+test('should allow an Admin to delete a user', async () => {
+    const [userToDelete, ] = await registerUser(request(app), 'diner');
+    expect(userToDelete.id).toBeDefined();
+    const deleteRes = await request(app)
+        .delete(`/api/user/${userToDelete.id}`)
+        .set('Authorization', 'Bearer ' + adminAuthToken)
+        .expect(200);
+    expect(deleteRes.status).toBe(200);
+    const verifyRes = await request(app)
+        .get(`/api/user/${userToDelete.id}`)
+        .set('Authorization', 'Bearer ' + adminAuthToken);
+    expect(verifyRes.status).toBe(404);
+});

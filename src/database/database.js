@@ -99,6 +99,50 @@ class DB {
     }
   }
 
+  async listUsers(page = 1, limit = 10, nameFilter = '*') {
+    const connection = await this.getConnection();
+    try {
+      const offset = this.getOffset(page, limit);
+      let whereClause = '';
+      const queryParams = [];
+      if (nameFilter && nameFilter !== '*') {
+        const sqlNamePattern = nameFilter.replace(/\*/g, '%');
+        whereClause = 'WHERE user.name LIKE ?'; 
+        queryParams.push(sqlNamePattern);
+      }
+      const sqlQuery = `SELECT user.name, user.email, userRole.role 
+        FROM user 
+        LEFT JOIN userRole 
+        ON user.id = userRole.userID 
+        ${whereClause} 
+        LIMIT ${offset}, ${limit}`;
+      queryParams.push(offset, limit);
+      const users = await this.query(connection, sqlQuery);
+      const cutUsers = users.map(user => ({
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          roles: user.role ? [{ role: user.role.trim() }] : []
+      }));
+      return { users: cutUsers, more: users.length === limit };
+    } catch (error) {
+        console.error("Database Error in listUsers:", error);
+        throw error;
+    } finally {
+      connection.end();
+    }
+  }
+
+  async deleteUser(userId) {
+    const connection = await this.getConnection();
+    try {
+      await this.query(connection, `DELETE FROM userRole WHERE userId=?`, [userId]);
+      await this.query(connection, `DELETE FROM user WHERE id=?`, [userId]);
+    } finally {
+      connection.end();
+    }
+  }
+
   async loginUser(userId, token) {
     token = this.getTokenSignature(token);
     const connection = await this.getConnection();
