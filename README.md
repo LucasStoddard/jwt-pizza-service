@@ -2,10 +2,6 @@
 
 ![Coverage badge](https://pizza-factory.cs329.click/api/badge/ljs99/jwtpizzaservicecoverage)
 
-^ This is currently not working, here's a screenshot of it rendering separately v
-
-![Bootleg coverage badge](failing_to_render.png)
-
 Backend service for making JWT pizzas. This service tracks users and franchises and orders pizzas. All order requests are passed to the JWT Pizza Factory where the pizzas are made.
 
 JWTs are used for authentication objects.
