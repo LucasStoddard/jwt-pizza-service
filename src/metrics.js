@@ -120,7 +120,7 @@ function currentUsers(login) {
 setInterval(() => {
   let cpu_total = getCpuUsagePercentage();
   let memory_total = getMemoryUsagePercentage();
-  sendMetricToGrafana('new_cpu_total', cpu_total, 'gauge', '1');
+  sendMetricToGrafana('new_cpu_total', cpu_total, 'gauge', '%');
   sendMetricToGrafana('new_memory_total', memory_total, 'gauge', '%');
   sendMetricToGrafana('pizza_success_total', pizzaSuccess, 'sum', '1');
   sendMetricToGrafana('pizza_failures_total', pizzaFailure, 'sum', '1');
