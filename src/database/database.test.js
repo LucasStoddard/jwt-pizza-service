@@ -176,3 +176,14 @@ test('should allow an Admin to delete a user', async () => {
         .set('Authorization', 'Bearer ' + adminAuthToken);
     expect(verifyRes.status).toBe(404);
 });
+
+afterAll(async () => {
+    if (DB && DB.close) {
+        await DB.close();
+    } else if (DB && DB.disconnect) {
+        await DB.disconnect();
+    }
+    if (app && app.close) {
+        await app.close();
+    }
+});

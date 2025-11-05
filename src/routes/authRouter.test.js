@@ -76,3 +76,14 @@ async function registerUser(service) {
 function randomName() {
   return Math.random().toString(36).substring(2, 12);
 }
+
+afterAll(async () => {
+    if (DB && DB.close) {
+        await DB.close();
+    } else if (DB && DB.disconnect) {
+        await DB.disconnect();
+    }
+    if (app && app.close) {
+        await app.close();
+    }
+});
