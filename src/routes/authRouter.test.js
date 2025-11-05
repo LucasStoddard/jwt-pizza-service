@@ -58,7 +58,7 @@ test('list users', async () => {
     .get('/api/user')
     .set('Authorization', 'Bearer ' + userToken);
   expect(listUsersRes.status).toBe(200);
-  console.log('API Response Body (FULL JSON):', JSON.stringify(listUsersRes.body, null, 2));
+  // console.log('API Response Body (FULL JSON):', JSON.stringify(listUsersRes.body, null, 2));
 });
 
 async function registerUser(service) {
