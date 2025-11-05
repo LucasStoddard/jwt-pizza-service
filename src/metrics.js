@@ -2,10 +2,6 @@ const config = require('./config.js');
 
 const os = require('os');
 
-// Only problems:
-//    My database is really screwed up and I'm not sure how to overwrite it (for generatePizzaTraffic.sh)
-//    Is the test warning about the sendMetricsPeriodically(1000) normal or should we .unref()?
-
 class Metrics {
   constructor() {
     this.totalRequests = 0;
