@@ -133,7 +133,7 @@ setInterval(() => {
   sendMetricToGrafana('requests_put_total', totalPutRequests, 'sum', '1');
   sendMetricToGrafana('requests_delete_total', totalDeleteRequests, 'sum', '1');
   sendMetricToGrafana('current_users_total', currUsers, 'gauge', '1');
-}, 1000);
+}, 1000).unref();
 
 function sendMetricToGrafana(metricName, metricValue, type, unit) {
   const valueKey = (type === 'sum' && Number.isInteger(Number(metricValue))) ? 'asInt' : 'asDouble';
