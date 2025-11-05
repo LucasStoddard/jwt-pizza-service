@@ -4,8 +4,8 @@ const config = require('../config.js');
 const { asyncHandler } = require('../endpointHelper.js');
 const { DB, Role } = require('../database/database.js');
 
-const authRouter = express.Router();
 const metrics = require('../metrics');
+const authRouter = express.Router();
 
 authRouter.docs = [
   {
