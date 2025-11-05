@@ -8,7 +8,32 @@ const config = require('./config.js');
 const metrics = require('./metrics.js')
 
 const app = express();
-app.use(metrics.requestTracker); // This should be sufficient for tracking (I may need to do this instead on the different routers)
+app.use((req, res, next) => { // NEW CODE
+  const start = process.hrtime();
+  metrics.incrementTotalRequests();
+  const method = req.method;
+  switch (method) {
+    case 'GET':
+      metrics.incrementGetRequests();
+      break;
+    case 'POST':
+      metrics.incrementPostRequests();
+      break;
+    case 'PUT':
+      metrics.incrementPutRequests();
+      break;
+    case 'DELETE':
+      metrics.incrementDeleteRequests();
+      break;
+  }
+  res.on('finish', () => {
+    const end = process.hrtime(start);
+    const latencyMs = (end[0] * 1000) + (end[1] / 1000000);
+    metrics.updateMsRequestLatency(latencyMs);
+  });
+  next();
+});
+
 app.use(express.json());
 app.use(setAuthUser);
 app.use((req, res, next) => {

@@ -93,10 +93,13 @@ orderRouter.post(
     const endTime = process.hrtime.bigint(); // NEW CODE
     const latencyMs = Number(endTime - startTime) / 1000000; // To ms
     if (r.ok) {
-      metrics.pizzaPurchase(true, latencyMs, orderPrice);
+      metrics.incrementTotalPizzas();
+      metrics.updateTotalRevenue(orderPrice);
+      metrics.updatePizzaCreationLatency(latencyMs);
       res.send({ order, followLinkToEndChaos: j.reportUrl, jwt: j.jwt });
     } else {
-      metrics.pizzaPurchase(false, latencyMs, 0);
+      metrics.incrementCreationFailures();
+      // metrics.pizzaPurchase(false, latencyMs, 0);
       res.status(500).send({ message: 'Failed to fulfill order at factory', followLinkToEndChaos: j.reportUrl });
     }
   })
