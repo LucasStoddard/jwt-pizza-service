@@ -1,5 +1,3 @@
-const { logger } = require('../service.js');
-
 class StatusCodeError extends Error {
   constructor(message, statusCode) {
     super(message);
