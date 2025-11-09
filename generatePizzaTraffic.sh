@@ -8,6 +8,8 @@ if [ -z "$1" ]; then
 fi
 host=$1
 
+# ./generatePizzaTraffic.sh https://pizza-service... (your url)
+
 # Trap SIGINT (Ctrl+C) to execute the cleanup function
 cleanup() {
   echo "Terminating background processes..."

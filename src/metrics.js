@@ -264,4 +264,4 @@ function sendMetricsPeriodically(period) {
   }, period);
 }
 
-sendMetricsPeriodically(1000);
+sendMetricsPeriodically(10000);
