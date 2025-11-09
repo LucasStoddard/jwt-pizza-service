@@ -5,9 +5,14 @@ const franchiseRouter = require('./routes/franchiseRouter.js');
 const userRouter = require('./routes/userRouter.js');
 const version = require('./version.json');
 const config = require('./config.js');
-const metrics = require('./metrics.js')
+const metrics = require('./metrics.js');
+const Logger = require('pizza-logger'); // NEW PIZZA LOGGER CODE
+const logger = new Logger(config); // NEW PIZZA LOGGER CODE
 
 const app = express();
+
+app.use(logger.httpLogger); // NEW PIZZA LOGGER CODE
+
 app.use((req, res, next) => { // NEW CODE
   const start = process.hrtime();
   metrics.incrementTotalRequests();
@@ -79,3 +84,4 @@ app.use((err, req, res, next) => {
 });
 
 module.exports = app;
+module.exports.logger = logger;
