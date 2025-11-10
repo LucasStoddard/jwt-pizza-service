@@ -84,4 +84,4 @@ app.use((err, req, res, next) => {
 });
 
 module.exports = app;
-module.exports.logger = logger;
+// module.exports.logger = logger;
