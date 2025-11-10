@@ -1,9 +1,9 @@
-const { logger } = require('./service.js');
+// const { logger } = require('./service.js');
 
 class StatusCodeError extends Error {
   constructor(message, statusCode) {
     super(message);
-    logger.unhandledErrorLogger(this);
+    // logger.unhandledErrorLogger(this);
     this.statusCode = statusCode;
   }
 }
