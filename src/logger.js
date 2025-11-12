@@ -76,7 +76,9 @@ class Logger {
       if (resText) {
         eval(resText);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log('Error:', error);
+    }
 
     // Log to Grafana
     const body = JSON.stringify(event);
