@@ -1,3 +1,5 @@
+const config = require('./config.js')
+
 class Logger {
   constructor(config) {
     this.config = config;
@@ -100,4 +102,5 @@ class Logger {
   }
 }
 
-module.exports = Logger;
+const logger = new Logger(config);
+module.exports = logger;
