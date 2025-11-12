@@ -102,5 +102,4 @@ class Logger {
   }
 }
 
-const logger = new Logger(config);
-module.exports = logger;
+module.exports = Logger;
