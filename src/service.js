@@ -6,13 +6,13 @@ const userRouter = require('./routes/userRouter.js');
 const version = require('./version.json');
 const config = require('./config.js');
 const metrics = require('./metrics.js');
-// const Logger = require('./logger.js')
+const Logger = require('./logger.js')
 
 const app = express();
 
-// const logger = new Logger(config);
+const logger = new Logger(config);
 
-// app.use(logger.httpLogger);
+app.use(logger.httpLogger);
 
 app.use((req, res, next) => { // NEW CODE
   const start = process.hrtime();
@@ -85,4 +85,4 @@ app.use((err, req, res, next) => {
 });
 
 module.exports = app;
-// module.exports.logger = logger;
+module.exports.logger = logger;
