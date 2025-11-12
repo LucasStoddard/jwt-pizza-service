@@ -7,22 +7,22 @@ const version = require('./version.json');
 const config = require('./config.js');
 const metrics = require('./metrics.js');
 
-let logger = {
-  httpLogger: (req, res, next) => next(),
-  dbLogger: () => {},
-  factoryLogger: () => {},
-};
+// let logger = {
+//   httpLogger: (req, res, next) => next(),
+//   dbLogger: () => {},
+//   factoryLogger: () => {},
+// };
 
-const disableLogger = process.env.DISABLE_LOGGER === 'true';
+// const disableLogger = process.env.DISABLE_LOGGER === 'true';
 
-if (!disableLogger) {
-  const Logger = require('pizza-logger'); // NEW PIZZA LOGGER CODE
-  logger = new Logger(config); // NEW PIZZA LOGGER CODE
-}
+// if (!disableLogger) {
+//   const Logger = require('pizza-logger'); // NEW PIZZA LOGGER CODE
+//   logger = new Logger(config); // NEW PIZZA LOGGER CODE
+// }
 
 const app = express();
 
-app.use(logger.httpLogger);
+// app.use(logger.httpLogger);
 
 
 app.use((req, res, next) => { // NEW CODE
@@ -96,4 +96,4 @@ app.use((err, req, res, next) => {
 });
 
 module.exports = app;
-module.exports.logger = logger;
+// module.exports.logger = logger;
