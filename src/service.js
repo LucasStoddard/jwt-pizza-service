@@ -6,12 +6,24 @@ const userRouter = require('./routes/userRouter.js');
 const version = require('./version.json');
 const config = require('./config.js');
 const metrics = require('./metrics.js');
-// const Logger = require('pizza-logger'); // NEW PIZZA LOGGER CODE
-// const logger = new Logger(config); // NEW PIZZA LOGGER CODE
+
+let logger = {
+  httpLogger: (req, res, next) => next(),
+  dbLogger: () => {},
+  factoryLogger: () => {},
+};
+
+const disableLogger = process.env.DISABLE_LOGGER === 'true';
+
+if (!disableLogger) {
+  const Logger = require('pizza-logger'); // NEW PIZZA LOGGER CODE
+  logger = new Logger(config); // NEW PIZZA LOGGER CODE
+}
 
 const app = express();
 
-// app.use(logger.httpLogger); // NEW PIZZA LOGGER CODE
+app.use(logger.httpLogger);
+
 
 app.use((req, res, next) => { // NEW CODE
   const start = process.hrtime();
@@ -84,4 +96,4 @@ app.use((err, req, res, next) => {
 });
 
 module.exports = app;
-// module.exports.logger = logger;
+module.exports.logger = logger;

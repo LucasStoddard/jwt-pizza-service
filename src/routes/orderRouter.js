@@ -7,8 +7,7 @@ const { asyncHandler, StatusCodeError } = require('../endpointHelper.js');
 const orderRouter = express.Router();
 const metrics = require('../metrics');
 
-// const Logger = require('pizza-logger'); 
-// const { logger } = require('../service.js');
+const { logger } = require('../service.js');
 
 orderRouter.docs = [
   {
@@ -88,8 +87,8 @@ orderRouter.post(
     }, 0);
     const order = await DB.addDinerOrder(req.user, orderReq);
     
-    // const orderInfo = { diner: { id: req.user.id, name: req.user.name, email: req.user.email }, order };
-    // logger.factoryLogger(orderInfo);
+    const orderInfo = { diner: { id: req.user.id, name: req.user.name, email: req.user.email }, order };
+    logger.factoryLogger(orderInfo);
 
     const r = await fetch(`${config.factory.url}/api/order`, {
       method: 'POST',
